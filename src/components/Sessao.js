@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 export default function Sessoes({sessao}){
-    console.log(sessao)
     if(sessao === undefined){
         return(
             <div>Carregando...</div>
@@ -9,24 +8,28 @@ export default function Sessoes({sessao}){
     }
     return(
         <>
-            {sessao.map((session, index) =>  <Sessao key={index} weekday={session.weekday} id={session.id} date={session.date} showtimes={session.showtimes}/>)}
+            {sessao && sessao.days.map((session, index) =>  <Sessao key={index} weekday={session.weekday} id={session.id} date={session.date} showtimes={session.showtimes}/>)}
         </>
     )
 }
 
-function Sessao(props){
-    console.log(props.showtimes.id)
+function Sessao(props){ 
     return(
         <>
             <SessionContainer>
                 {`${props.weekday} - ${props.date}`}
-                <Link to={`/assentos/${props.id}`}>
-                    <ButtonsContainer>
-                        <button>{props.showtimes[0].name}</button> 
-                        <button>{props.showtimes[1].name}</button>
-                    </ButtonsContainer>
-                </Link>
-                
+                        <ButtonsContainer>
+                            <Link to={`/assentos/${props.showtimes[0].id}`}>
+                                <div data-test="movie-day">
+                                    <button>{props.showtimes[0].name}</button> 
+                                </div>
+                            </Link>
+                            <Link to={`/assentos/${props.showtimes[1].id}`}>
+                                <div data-test="movie-day">
+                                    <button>{props.showtimes[1].name}</button>
+                                </div>
+                            </Link>  
+                        </ButtonsContainer>
             </SessionContainer>
     </>
     )

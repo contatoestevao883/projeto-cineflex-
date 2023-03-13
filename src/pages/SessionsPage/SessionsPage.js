@@ -6,30 +6,30 @@ import Sessoes from "../../components/Sessao"
 
 export default function SessionsPage() {
     const [sessao, setSessao] = useState(undefined)
-    const {idFilme} = useParams()
+    const { idFilme } = useParams()
     console.log(idFilme)
     useEffect (() => {
         const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
         requisicao.then((resposta) =>{
-            setSessao(resposta.data.days)
+            setSessao(resposta.data)
+            
         })
         requisicao.catch((err) =>{
             console.log(err.response.data)
         })
-    }, [])
+    }, [idFilme])
     return (
         <PageContainer>
             Selecione o horário
                 <div>
-                    <Sessoes sessao={sessao} />
+                    <Sessoes sessao={sessao}  /> 
                 </div>
-
-            <FooterContainer>
+            <FooterContainer  data-test="footer">
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src= {sessao && sessao.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{sessao && sessao.title}</p>
                 </div>
             </FooterContainer>
 

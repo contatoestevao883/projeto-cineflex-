@@ -9,14 +9,13 @@ import { useState } from "react"
 
 export default function App() {
     const [filmes, setFilmes] = useState([])
-    const [sessao, setSessao] = useState(undefined)
     return (
         <BrowserRouter>
            <NavContainer>CINEFLEX</NavContainer>
             <Routes>
                 <Route path="/" element={<HomePage filmes={filmes} setFilmes={setFilmes}/>} />
                 <Route path="/assentos/:idSessao" element={ <SeatsPage  /> }/>
-                <Route path="/sessoes/:idFilme" element= {<SessionsPage sessao={sessao} setSessao={setSessao}/>} />
+                <Route path="/sessoes/:idFilme" element= {<SessionsPage filmes={filmes} setFilmes={setFilmes} />} />
                 <Route path="/" element={<SuccessPage />} />
             </Routes>
         </BrowserRouter>
